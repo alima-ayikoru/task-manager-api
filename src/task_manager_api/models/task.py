@@ -1,6 +1,4 @@
 from src.task_manager_api.database import Base
-from src.task_manager_api.models.user import User
-from src.task_manager_api.models.project import Project
 from sqlalchemy import DateTime, ForeignKey, Enum as sqlalchemyEnum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
@@ -23,4 +21,4 @@ class Task(Base):
     updated_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), onupdate=func.now())
     deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     user: Mapped["User"] = relationship("User", back_populates="tasks")
-    project: Mapped["Project" | None] = relationship("Project", back_populates="tasks")
+    project: Mapped["Project | None "] = relationship("Project", back_populates="tasks")

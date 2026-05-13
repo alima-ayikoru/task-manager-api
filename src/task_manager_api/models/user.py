@@ -1,7 +1,5 @@
 # src/task_manager_api/models/user.py
 from src.task_manager_api.database import Base
-from src.task_manager_api.models.project import Project
-from src.task_manager_api.models.task import Task
 from sqlalchemy import DateTime
 from sqlalchemy.sql import func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -21,4 +19,3 @@ class User(Base):
     last_login_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     projects: Mapped[list["Project"]] = relationship("Project", back_populates="user")
     tasks: Mapped[list["Task"]] = relationship("Task", back_populates="user")
-
