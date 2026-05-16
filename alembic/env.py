@@ -1,7 +1,9 @@
 import asyncio
 from logging.config import fileConfig
 from src.task_manager_api.database import Base
-from src.task_manager_api.models import User, Project, Task  # noqa: F401
+from src.task_manager_api.models.user import User  # noqa: F401
+from src.task_manager_api.models.project import Project  # noqa: F401
+from src.task_manager_api.models.task import Task  # noqa: F401
 
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection

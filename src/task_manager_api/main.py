@@ -19,9 +19,8 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         print(f"Database connection failed: {e}")
         raise ConnectionError("Failed to connect to the database") from e
-    
-    app.state.session_factory = async_sessionmaker(bind=engine, expire_on_commit=False)
 
+    app.state.session_factory = async_sessionmaker(bind=engine, expire_on_commit=False)
 
     yield
 
@@ -30,5 +29,3 @@ async def lifespan(app: FastAPI):
 
 # Create the FastAPI application with the defined lifespan
 app = FastAPI(lifespan=lifespan)
-
-    
