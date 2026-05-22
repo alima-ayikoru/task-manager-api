@@ -1,5 +1,5 @@
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
-from sqlalchemy import select, text
+from sqlalchemy import text
 from src.task_manager_api.settings import settings
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
@@ -20,7 +20,10 @@ async def lifespan(app: FastAPI):
         print(f"Database connection failed: {e}")
         raise ConnectionError("Failed to connect to the database") from e
 
-    app.state.session_factory = async_sessionmaker(bind=engine, expire_on_commit=False)
+    app.state.session_factory = async_sessionmaker(
+        bind=engine,
+        expire_on_commit=False
+        )
 
     yield
 
