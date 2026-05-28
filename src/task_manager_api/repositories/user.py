@@ -3,19 +3,19 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.task_manager_api.models import User
 
 
-async def get_user_by_email(session: AsyncSession, email: str) -> User | None:
-    result = await session.execute(
-        select(User).where(User.email == email)
-    )
-    user = result.scalars_one_or_none()
+class UserRepository:
+    def __init__(self, session: AsyncSession):
+        self.session = session
 
-    return user
+    async def get_user_by_email(self, email: str) -> User | None:
+        result = await self.session.execute(
+            select(User).where(User.email == email)
+        )
+        return result.scalar_one_or_none()
 
-
-async def create_user(session: AsyncSession, email: str, password_hash: str) -> User:
-    user = User(email=email, password_hash=password_hash)
-    session.add(user)
-    await session.commit()
-    await session.refresh(user)
-
-    return user
+    async def create_user(self, email: str, hashed_password: str) -> User:
+        user = User(email=email, hashed_password=hashed_password)
+        self.session.add(user)
+        await self.session.commit()
+        await self.session.refresh(user)
+        return user
