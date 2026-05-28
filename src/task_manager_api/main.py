@@ -4,6 +4,8 @@ from src.task_manager_api.settings import settings
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
+from task_manager_api.exceptions.handler import register_exception_handler
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -32,3 +34,4 @@ async def lifespan(app: FastAPI):
 
 # Create the FastAPI application with the defined lifespan
 app = FastAPI(lifespan=lifespan)
+register_exception_handler(app)
