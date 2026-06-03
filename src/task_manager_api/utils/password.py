@@ -1,7 +1,8 @@
 
 from pwdlib import PasswordHash
+from pwdlib.hashers.bcrypt import BcryptHasher
 
-pwd = PasswordHash.recommended()
+pwd = PasswordHash((BcryptHasher(),))
 
 
 def hash_password(password: str) -> str:
@@ -9,4 +10,4 @@ def hash_password(password: str) -> str:
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return pwd.verify(plain_password, hashed_password)  
+    return pwd.verify(plain_password, hashed_password)
