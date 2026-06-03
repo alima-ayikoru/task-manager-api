@@ -31,6 +31,6 @@ async def register_user(session: AsyncSession, email: str, password: str):
         raise WeakPasswordError()
 
     hashed_password = hash_password(password)
-    user = await repo.create_user(session, email, hashed_password)
+    user = await repo.create_user(email, hashed_password)
 
     return user
