@@ -1,6 +1,6 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from src.task_manager_api.models import User
+from src.task_manager_api.models.user import User
 
 
 class UserRepository:
