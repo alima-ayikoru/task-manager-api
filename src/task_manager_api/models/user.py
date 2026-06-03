@@ -17,5 +17,5 @@ class User(Base):
     updated_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), onupdate=func.now())
     deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))   
     last_login_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
-    projects: Mapped[list["Project"]] = relationship("Project", back_populates="user")
-    tasks: Mapped[list["Task"]] = relationship("Task", back_populates="user")
+    # projects: Mapped[list["Project"]] = relationship("Project", back_populates="user")
+    # tasks: Mapped[list["Task"]] = relationship("Task", back_populates="user")
