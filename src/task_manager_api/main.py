@@ -4,7 +4,8 @@ from src.task_manager_api.settings import settings
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
-from task_manager_api.exceptions.handler import register_exception_handler
+from src.task_manager_api.exceptions.handler import register_exception_handler
+from src.task_manager_api.routers.user import router as user_router
 
 
 @asynccontextmanager
@@ -15,7 +16,6 @@ async def lifespan(app: FastAPI):
 
     try:
         async with engine.connect() as conn:
-            # await conn.execute(select(1))
             await conn.execute(text("SELECT 1"))
             print("Database connection successful")
     except Exception as e:
@@ -35,3 +35,4 @@ async def lifespan(app: FastAPI):
 # Create the FastAPI application with the defined lifespan
 app = FastAPI(lifespan=lifespan)
 register_exception_handler(app)
+app.include_router(user_router)
