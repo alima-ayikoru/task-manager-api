@@ -7,5 +7,5 @@ class Base(DeclarativeBase):
 
 
 async def get_session(request: Request):
-    async with request.app.state.session_factory() as session:
+    async with request.app.state.session_factory.begin() as session:
         yield session
